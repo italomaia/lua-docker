@@ -5,5 +5,5 @@ ARG LUA_VER=5.3
 LABEL maintainer="Italo Maia <italo.maia@gmail.com>"
 
 RUN apt-get update -y\
-    && apt-get install -y lua${LUA_VER} luarocks \
+    && apt-get install -y lua${LUA_VER} liblua${LUA_VER}-dev luarocks \
     && rm -rf /var/lib/apt/lists/*
