@@ -1,0 +1,9 @@
+ARG DISTRO_VER=latest
+FROM debian:${DISTRO_VER}
+
+ARG LUA_VER=5.3
+LABEL maintainer="Italo Maia <italo.maia@gmail.com>"
+
+RUN apt-get update -y\
+    && apt-get install -y lua${LUA_VER} luarocks \
+    && rm -rf /var/lib/apt/lists/*

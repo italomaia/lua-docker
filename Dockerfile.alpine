@@ -1,0 +1,18 @@
+ARG DISTRO_VER="latest"
+FROM alpine:${DISTRO_VER}
+
+ARG LUA_VER="5.3"
+ARG LUAROCKS_VER="3.0.4"
+
+LABEL maintainer="Italo Maia <italo.maia@gmail.com>"
+
+RUN apk add --no-cache --update -u lua${LUA_VER} lua${LUA_VER}-dev \
+    && apk add --no-cache --virtual .build-deps build-base unzip curl \
+    && curl -o /tmp/luarocks-${LUAROCKS_VER}.tar.gz http://luarocks.github.io/luarocks/releases/luarocks-${LUAROCKS_VER}.tar.gz \
+    && ls /tmp \
+    && tar -xvf /tmp/luarocks-${LUAROCKS_VER}.tar.gz -C /tmp \
+    && cd /tmp/luarocks-${LUAROCKS_VER} \
+    && ./configure \
+    && make build install \
+    && apk del --purge .build-deps \
+    && cd; rm -rf /tmp/*
